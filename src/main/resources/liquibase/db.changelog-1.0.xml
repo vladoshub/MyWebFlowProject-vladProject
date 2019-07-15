@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="20190708-01" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="type"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы для хранения типов словарей.</comment>
+        <createTable tableName="type">
+            <column autoIncrement="true" name="id" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="type" type="character varying">
+                <constraints nullable="false"/>
+            </column>
+            <column name="regwords" type="character varying">
+                <constraints nullable="true"/>
+            </column>
+            <column name="regkeys" type="character varying">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="20190708-02" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="key"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы для хранения Ключей</comment>
+        <createTable tableName="key">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="keys" type="character varying">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type_id" type="integer">
+                <constraints nullable="true" foreignKeyName="keys_type_id_fkey" references="type(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20190708-03" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="word"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы для хранения значений (слов).</comment>
+        <createTable tableName="word">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="words" type="character varying">
+                <constraints nullable="true"/>
+            </column>
+            <column name="key_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="words_key_id_fkey" references="key(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="20190708-04" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+                <sqlCheck expectedResult="0">select count(1) from type where type='Rus-Lat'</sqlCheck>
+        </preConditions>
+        <comment>Добавление нового типа словаря в таблицу types</comment>
+        <insert tableName="type">
+            <column name="id" valueNumeric="1"/>
+            <column name="type" value="Rus-Lat"/>
+            <column name="regwords" value="[А-яа-я -]{1,50}$"/>
+            <column name="regkeys" value="^[A-Za-z]{4}$"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20190708-05" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+                <sqlCheck expectedResult="0">select count(1) from type where type='Bin-Dec'</sqlCheck>
+        </preConditions>
+        <comment>Добавление нового типа словаря в таблицу types</comment>
+        <insert tableName="type" >
+            <column name="id" valueNumeric="2"/>
+            <column name="type" value="Bin-Dec"/>
+            <column name="regwords" value="[А-яа-я -]{1,50}$"/>
+            <column name="regkeys" value="[0-9]{5}$"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20190708-06" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            <indexExists indexName="keyIndex" />
+            </not>
+        </preConditions>
+        <comment>Добавление полезного индека для ключа</comment>
+        <createIndex indexName="keyIndex" tableName="key">
+            <column name="keys"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20190708-07" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            <indexExists indexName="keyTypesIndex" />
+            </not>
+        </preConditions>
+        <comment>Добавление полезного индека для ключ и типа словаря</comment>
+        <createIndex indexName="keyTypesIndex" tableName="key">
+            <column name="keys"/>
+            <column name="type_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20190708-08" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            <indexExists indexName="wordIndex" />
+            </not>
+        </preConditions>
+        <comment>Добавление полезного индека для слова</comment>
+        <createIndex indexName="wordIndex" tableName="word">
+            <column name="words"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="20190708-09" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <not>
+            <indexExists indexName="typeIndex" />
+            </not>
+        </preConditions>
+        <comment>Добавление полезного индека для типа</comment>
+        <createIndex indexName="typeIndex" tableName="type">
+            <column name="type"/>
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+    http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+
+    <var name="out"
+         class="ru.mmtr.flow.Out"/>
+    <var name="type"
+         class="ru.mmtr.flow.TypeVoc"/>
+
+    <view-state id="main" view="main">
+        <transition on="nextRus" to="temp">
+            <set  name = "type.type"  value = "WebFlowService.findIdByType('Rus-Lat')"/>
+        </transition>
+        <transition on="nextBin" to="temp">
+            <set  name = "type.type"  value = "WebFlowService.findIdByType('Bin-Dec')"/>
+        </transition>
+    </view-state>
+
+
+    <view-state id="voc" view="voc">
+
+        <transition on="backPage" to="temp">
+        </transition>
+
+        <transition on="reload" to="voc">
+        </transition>
+
+        <transition on="SearchKeys" >
+            <evaluate result="out" expression=
+                    "WebFlowService.searchByKey(requestParameters.searchkey,type.type.id)"/>
+        </transition>
+
+        <transition on="SearchWords" >
+            <evaluate result="out" expression=
+                    "WebFlowService.searchByWords(requestParameters.searchword,type.type.id)"/>
+        </transition>
+
+        <transition on="addWordss" >
+            <evaluate result="out" expression=
+                    "WebFlowService.addKey(requestParameters.keys,requestParameters.words,type.type.id)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="addWordsss" >
+            <evaluate result="out" expression=
+                    "WebFlowService.addWord(requestParameters.ID,requestParameters.words,type.type.id)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="editWord" >
+            <evaluate result="out" expression=
+                    "WebFlowService.updateWord(requestParameters.ID,requestParameters.words,type.type.id,requestParameters.kID)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="editKey" >
+            <evaluate result="out" expression=
+                    "WebFlowService.updateKey(requestParameters.ID,requestParameters.keys,type.type.id)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="deletedWord" >
+            <evaluate result="out" expression=
+                    "WebFlowService.delWordById(requestParameters.ID,type.type.id,requestParameters.kID)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="deletedKey" >
+            <evaluate result="out" expression=
+                    "WebFlowService.delKeyById(requestParameters.ID,type.type.id)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="editManyWordsInKey" >
+            <evaluate result="out" expression=
+                    "WebFlowService.editManyWordsInKey(type.type.id,requestParameters.ID,requestParameters.words)"/>
+            <render fragments="voc"/>
+        </transition>
+
+        <transition on="addManyWordsAndKey" >
+            <evaluate result="out" expression=
+                    "WebFlowService.addManyWordsAndKey(requestParameters.keys,requestParameters.words,type.type.id)"/>
+            <render fragments="voc"/>
+        </transition>
+
+
+    </view-state>
+
+
+
+
+
+    <view-state id="temp" view="temp" model="WebFlowService">
+        <transition on="nextBin" to="temp">
+            <set  name = "type.type"  value = "WebFlowService.findIdByType('Bin-Dec')"/>
+        </transition>
+        <transition on="nextRus" to="temp">
+            <set  name = "type.type"  value = "WebFlowService.findIdByType('Rus-Lat')"/>
+        </transition>
+        <transition on="next" to="main"/>
+        <transition on="voc" to="voc">
+            <evaluate result="out" expression=
+                    "WebFlowService.findKeys(type.type.id)" />
+        </transition>
+    </view-state>
+</flow>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <!-- Base Definition -->
+    <definition name="temp"
+                template="/WEB-INF/jsp/choiceVoc.jsp">
+        <put-attribute name="title" value=""/>
+    </definition>
+
+    <definition name="main"
+                template="/WEB-INF/jsp/main.jsp">
+    </definition>
+
+
+
+    <definition name="voc"
+                template="/WEB-INF/jsp/Vocabulary.jsp">
+        <put-attribute name="voc" value="/WEB-INF/jsp/vocFragment.jsp"/>
+    </definition>
+
+
+
+
+
+</tiles-definitions>
