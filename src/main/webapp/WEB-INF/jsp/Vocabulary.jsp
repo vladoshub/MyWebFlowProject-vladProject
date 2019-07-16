@@ -22,6 +22,8 @@
 </head>
 <body>
 <form id="forma1" method="post">
+    ${flowExecutionUrl}
+    <input id='flow' type="hidden" value='${flowExecutionUrl}'>
     <input id="keys" name="keys" type="hidden" value="">
     <input id="words" name="words" type="hidden" value="">
     <input id="ID" name="ID" type="hidden" value="">

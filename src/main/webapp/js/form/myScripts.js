@@ -52,10 +52,10 @@ function hiddRow(id) {
 function deleteKeyOrSingleWord(id, op) {
     check = 0;
     if ((op + '') == 'keys') {
-        document.getElementById("ID").value = document.getElementById(id).name;
+        $("#ID").val($("#"+id).attr('name'));
         $("#forma1").ajaxSubmit({
 
-            url: "${flowExecutionUrl}&_eventId_deletedKey&ajaxSource=true",
+            url: $("#flow").val()+"&_eventId_deletedKey&ajaxSource=true",
             success: function (html) {
                 $("#voc").html($(html).filter("#voc")),
                     $("#answer").html($(html).filter("#answer"));
@@ -68,7 +68,7 @@ function deleteKeyOrSingleWord(id, op) {
     }
     else {
 
-        document.getElementById("ID").value = document.getElementById(id).name;
+        $("#ID").val($("#"+id).attr('name'));
         $("#forma1").ajaxSubmit({
 
             url: "${flowExecutionUrl}&_eventId_deletedWord&ajaxSource=true",
@@ -125,7 +125,7 @@ function addWord(id, idKey) {
     }
     var a = "rows" + rows;
     rows++;
-    var tbody = document.getElementById(id);
+    var tbody = $('#' + id);
     var row = document.createElement("TR");
     var td1 = document.createElement("TD");
     var td2 = document.createElement("TD");
@@ -145,10 +145,10 @@ function addWord(id, idKey) {
     butSave.style = "background: url(/images/upload.png);background-size: 38px 35px;";
     butDel.title = "Удалить";
     butDel.style = "background: url(/images/deleteKeyOrSingleWord.png);background-size: 38px 35px;";
-    butDel.onclick = function () {
-        document.getElementById(row.id).remove();
+    $(butDel).on('click',function () {
+        $("#" + row.id).remove();
         check--;
-        var x = document.getElementById(id).getElementsByTagName('input');
+        var x = $("#" + id).getElementsByTagName('input');
         if (check == 1) {
             $('#butAllWord' + idKey).attr("style", "background: url(/images/addAllBW.png);background-size:38px 35px");
             $('#butAllWord' + idKey).attr("disabled", true);
@@ -160,8 +160,8 @@ function addWord(id, idKey) {
             $('#butAllWord' + idKey).attr("style", "background: url(/images/addAllBW.png);background-size:38px 35px");
             $('#butAllWord' + idKey).attr("disabled", true);
         }
-    }
-    butSave.onclick = function () {
+    });
+    $(butSave).on('click',function () {
         check = 0;
         var id = a + "input";
         var id2 = a + "R";
@@ -180,7 +180,7 @@ function addWord(id, idKey) {
                 console.log(error)
             }
         });
-    }
+    });
 
     td2.appendChild(inp);
     td3.appendChild(butDel);

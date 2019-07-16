@@ -14,7 +14,7 @@
         </preConditions>
         <comment>Создание таблицы для хранения типов словарей.</comment>
         <createTable tableName="type">
-            <column autoIncrement="true" name="id" type="integer">
+            <column autoIncrement="true" name="id" type="integer" remarks="">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="type" type="character varying">
@@ -29,8 +29,56 @@
         </createTable>
     </changeSet>
 
-
     <changeSet id="20190708-02" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+                <tableExists tableName="type"/>
+        </preConditions>
+        <sql>
+            COMMENT ON TABLE TYPE IS 'Таблица типов словарей';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190708-03" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="type" columnName="id"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN TYPE.ID IS 'КЛЮЧ для таблицы TYPE';
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20190708-04" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="type" columnName="type"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN TYPE.TYPE IS 'КЛЮЧ для таблицы TYPE';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190708-05" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="type" columnName="regwords"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN TYPE.REGWORDS IS 'Колонка хранения регулярных выражения для слов';
+        </sql>
+    </changeSet>
+
+
+
+    <changeSet id="20190708-06" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="type" columnName="regkeys"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN TYPE.REGKEYS IS 'Колонка хранения регулярных выражения для ключей';
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20190708-07" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="key"/>
@@ -50,7 +98,45 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20190708-03" author="vladMMTR">
+    <changeSet id="20190708-08" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="key"/>
+        </preConditions>
+        <sql>
+            COMMENT ON TABLE KEY IS 'Таблица хранения ключей';
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20190708-09 " author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="key" columnName="id"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN KEY.ID IS 'Колонка ключей таблицы Key';
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20190708-10" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="key" columnName="keys"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN KEY.KEYS IS 'Колонка хранения Ключей';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190708-11" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="key" columnName="type_id"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN KEY.TYPE_ID IS 'Колонка хранения ключей таблицы TYPE';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190708-12" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="word"/>
@@ -70,8 +156,46 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="20190708-13" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="word"/>
+        </preConditions>
+        <sql>
+            COMMENT ON TABLE WORD IS 'Таблица хранения значений';
+        </sql>
+    </changeSet>
 
-    <changeSet id="20190708-04" author="vladMMTR">
+
+    <changeSet id="20190708-14" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="word" columnName="id"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN WORD.ID IS 'Колонка ключей таблицы WORD';
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20190708-15" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="word" columnName="words"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN WORD.WORDS IS 'Колонка хранения значений(слов)';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190708-16" author="vladMMTR">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="word" columnName="key_id"/>
+        </preConditions>
+        <sql>
+            COMMENT ON COLUMN WORD.KEY_ID IS 'Колонка хранения ключей таблицы KEY';
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20190708-17" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
                 <sqlCheck expectedResult="0">select count(1) from type where type='Rus-Lat'</sqlCheck>
         </preConditions>
@@ -84,7 +208,7 @@
         </insert>
     </changeSet>
 
-    <changeSet id="20190708-05" author="vladMMTR">
+    <changeSet id="20190708-18" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
                 <sqlCheck expectedResult="0">select count(1) from type where type='Bin-Dec'</sqlCheck>
         </preConditions>
@@ -97,7 +221,7 @@
         </insert>
     </changeSet>
 
-    <changeSet id="20190708-06" author="vladMMTR">
+    <changeSet id="20190708-19" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
             <not>
             <indexExists indexName="keyIndex" />
@@ -109,7 +233,7 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="20190708-07" author="vladMMTR">
+    <changeSet id="20190708-20" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
             <not>
             <indexExists indexName="keyTypesIndex" />
@@ -122,7 +246,7 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="20190708-08" author="vladMMTR">
+    <changeSet id="20190708-21" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
             <not>
             <indexExists indexName="wordIndex" />
@@ -134,7 +258,7 @@
         </createIndex>
     </changeSet>
 
-    <changeSet id="20190708-09" author="vladMMTR">
+    <changeSet id="20190708-22" author="vladMMTR">
         <preConditions onFail="MARK_RAN">
             <not>
             <indexExists indexName="typeIndex" />
