@@ -12,7 +12,7 @@ function editKeyOrSingleWord(id, op, newword) {
         check = 0;
         if ((op + '') == 'keys') {
 
-            $("#keys").attr("name",$('#' + id).val());
+            $("#keys").attr("value",$('#' + id).val());
             $("#ID").val( $("#"+id).attr("name"));
             $("#forma1").ajaxSubmit({
 
@@ -88,12 +88,9 @@ function deleteKeyOrSingleWord(id, op) {
 function addAllWord(id, idKey) {
     check = 0;
     var words = "";
-    var x = $('#'+id+' input');
-    for (var i = 0; i < x.length; i++) {
-        if (x[i].value != "") {
-            words = words + x[i].value + "#_#";
-        }
-    }
+    jQuery('#'+id+' input').each(function() {
+        words = words + this.value + "#_#";
+    });
     if (words != "") {
         words = words.substring(0, words.length - 3);
         $('#words').val(words);
@@ -333,12 +330,11 @@ function editWords(id, id2, newword) {
     else {
         check = 0;
         $("#words").val($("#"+id).val());
-        $("#ID").val($("#"+id).attr());
+        $("#ID").val($("#"+id).attr("id"));
         var ids = "";
         ids = ids + id2;
         $("#kID").val(ids);
         $("#forma1").ajaxSubmit({
-
             url: $("#flow").val()+"&_eventId_editWord&ajaxSource=true",
             success: function (html) {
                 $("#voc").html($(html).filter("#voc")),

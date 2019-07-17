@@ -34,7 +34,9 @@
                     <td><input type="text" name="${items.id}"  value="${items.key}" id="${items.id}inpK"/><span style="color: red">
                         <c:if test="${items.id == out.keysDtos.id and out.wordsDtos==null}">${out.outMess}</c:if>
                     </span></td>
-                    <c:choose><c:when
+                    <c:choose>
+                        <c:when test="${items.words.size()==0}"><td></td></c:when>
+                        <c:when
                             test="${items.words.size()==1}">
                         <td>
                             <input type="text"  value="${items.words.get(0).word}" readonly="readonly" id="${items.id}inpOO"/><span style="color: red">
@@ -79,8 +81,6 @@
     background-size: 38px 35px;" title="удалить"></button>
                         </td>
                     </tr>
-                    <tbody id="${items.id}t2">
-                    </tbody>
                 </c:if>
                 <c:if test="${items.words.size()>1}">
                     <tbody id="${items.id}M" style="display: none;">
@@ -100,10 +100,10 @@
                             </td>
                         </tr>
                     </c:forEach>
-                    <tbody id="${items.id}t2">
-                    </tbody>
                     </tbody>
                 </c:if>
+                <tbody id="${items.id}t2">
+                </tbody>
             </c:forEach>
         </c:if>
         <tbody id="table">
