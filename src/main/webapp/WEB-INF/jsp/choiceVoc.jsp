@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <style><%@include file="/WEB-INF/css/choicePage.css"%></style>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/choicePage.css"/>
 </head>
 <body id="voc">
 <form method="post">

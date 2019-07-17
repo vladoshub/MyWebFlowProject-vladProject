@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
-<style><%@include file="/WEB-INF/css/choicePage.css"%></style>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/choicePage.css"/>
 <body id="main">
 <form method="post">
         <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>

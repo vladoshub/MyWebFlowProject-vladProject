@@ -13,9 +13,7 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <title>Словарь</title>
-    <style>
-        <%@include file="/WEB-INF/css/table.css"%>
-    </style>
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/form/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/form/jquery.form.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/form/myScripts.js"></script>
