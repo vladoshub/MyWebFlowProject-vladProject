@@ -1,7 +1,7 @@
-var rows = 0;
-var rows1 = 0;
-var wordInKey = 0;
-var check = 0;
+var countAddedWordRows = 0;
+var countAddedKeyRows = 0;
+var wordsInKey = 0;
+var countAddedWords = 0;
 
 function editKeyOrSingleWord(id, op, newword) {
     newword = newword + "";
@@ -9,7 +9,7 @@ function editKeyOrSingleWord(id, op, newword) {
         alert("введите что-нибудь или измененное значение");
     }
     else {
-        check = 0;
+        countAddedWords = 0;
         if ((op + '') == 'keys') {
 
             $("#keys").attr("value",$('#' + id).val());
@@ -51,7 +51,7 @@ function hiddRow(id) {
 
 
 function deleteKeyOrSingleWord(id, op) {
-    check = 0;
+    countAddedWords = 0;
     if ((op + '') == 'keys') {
         $("#ID").val($("#"+id).attr('name'));
         $("#forma1").ajaxSubmit({
@@ -86,7 +86,7 @@ function deleteKeyOrSingleWord(id, op) {
 }
 
 function addAllWord(id, idKey) {
-    check = 0;
+    countAddedWords = 0;
     var words = "";
     jQuery('#'+id+' input').each(function() {
         words = words + this.value + "#_#";
@@ -112,17 +112,17 @@ function addAllWord(id, idKey) {
 }
 
 function addWord(id, idKey) {
-    if (check == 0) {
+    if (countAddedWords == 0) {
         $("button[name~='WordsInK']").toggle();
         $('#butAddOneWord' + idKey).toggle();
     }
-    check++;
-    if (check == 2) {
+    countAddedWords++;
+    if (countAddedWords == 2) {
         $('#butAllWord' + idKey).attr("style", "background: url(/images/addAll.png);background-size:38px 35px");
         $('#butAllWord' + idKey).attr("disabled", false);
     }
-    var a = "rows" + rows;
-    rows++;
+    var a = "countAddedWordRows" + countAddedWordRows;
+    countAddedWordRows++;
     var tbody = $('#' + id);
     var row = $('<tr></tr>');
     var td1 = $('<td></td>');
@@ -145,14 +145,14 @@ function addWord(id, idKey) {
     butDel.attr("style","background: url(/images/del.png);background-size: 38px 35px;");
     $(butDel).on('click',function () {
         $("#" + row.attr("id")).remove();
-        check--;
+        countAddedWords--;
         var x = $("#" + id+" input");
-        if (check == 1) {
+        if (countAddedWords == 1) {
             $('#butAllWord' + idKey).attr("style", "background: url(/images/addAllBW.png);background-size:38px 35px");
             $('#butAllWord' + idKey).attr("disabled", true);
         }
         if (!x[0]) {
-            check = 0;
+            countAddedWords = 0;
             $("button[name~='WordsInK']").toggle();
             $('#butAddOneWord' + idKey).toggle();
             $('#butAllWord' + idKey).attr("style", "background: url(/images/addAllBW.png);background-size:38px 35px");
@@ -160,7 +160,7 @@ function addWord(id, idKey) {
         }
     });
     $(butSave).on('click',function () {
-        check = 0;
+        countAddedWords = 0;
         var id = a + "input";
         var id2 = a + "R";
         var text = $("#"+id).val();
@@ -191,8 +191,8 @@ function addWord(id, idKey) {
 }
 
 function addKey(id) {
-    var a = "rows1" + rows1;
-    rows1++;
+    var a = "countAddedKeyRows" + countAddedKeyRows;
+    countAddedKeyRows++;
     var table = $('#'+id);
     var row = $('<tr></tr>');
     var td1 = $('<td></td>');
@@ -223,7 +223,7 @@ function addKey(id) {
     });
     addWord.on('click',function () {
         var butDel = $('</button>');
-        var id = wordInKey + "manyWord";
+        var id = wordsInKey + "manyWord";
         butDel.on('click',function () {
             $("#" + id).remove();
         });
@@ -240,7 +240,7 @@ function addKey(id) {
         var rowW = $('<tr></tr>');
         rowW.attr("name", "rowWord");
         rowW.attr("id", id);
-        wordInKey = wordInKey + 1;
+        wordsInKey = wordsInKey + 1;
         tdWInp.append(inpW);
         rowW.append(tdW);
         rowW.append(tdWInp);
@@ -252,7 +252,7 @@ function addKey(id) {
     });
 
     butSave.on('click',function () {
-        check = 0;
+        countAddedWords = 0;
         var words = a + "inputWord";
         var id2 = a + "R";
         var keys = a + "inputKey";
@@ -328,7 +328,7 @@ function editWords(id, id2, newword) {
         alert("введите что-нибудь или измененное значение");
     }
     else {
-        check = 0;
+        countAddedWords = 0;
         $("#words").val($("#"+id).val());
         $("#ID").val($("#"+id).attr("id"));
         var ids = "";
@@ -352,7 +352,7 @@ function deleteWords(id, id2) {
     var ids = "";
     ids = ids + id2;
     $("#kID").val(ids);
-    check = 0;
+    countAddedWords = 0;
     $("#forma1").ajaxSubmit({
 
         url: $("#flow").val()+"&_eventId_deletedWord&ajaxSource=true",

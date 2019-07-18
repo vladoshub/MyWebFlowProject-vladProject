@@ -36,7 +36,7 @@ var jQuery = function( selector, context ) {
 	// A central reference to the root jQuery(document)
 	rootjQuery,
 
-	// A simple way to check for HTML strings or ID strings
+	// A simple way to countAddedWords for HTML strings or ID strings
 	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
 	quickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
 
@@ -124,7 +124,7 @@ jQuery.fn = jQuery.prototype = {
 		if ( typeof selector === "string" ) {
 			// Are we dealing with HTML string or an ID?
 			if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
-				// Assume that strings that start and end with <> are HTML and skip the regex check
+				// Assume that strings that start and end with <> are HTML and skip the regex countAddedWords
 				match = [ null, selector, null ];
 
 			} else {
@@ -473,7 +473,7 @@ jQuery.extend({
 			window.attachEvent( "onload", jQuery.ready );
 
 			// If IE and not a frame
-			// continually check to see if the document is ready
+			// continually countAddedWords to see if the document is ready
 			var toplevel = false;
 
 			try {
@@ -513,7 +513,7 @@ jQuery.extend({
 
 	isPlainObject: function( obj ) {
 		// Must be an Object.
-		// Because of IE, we also have to check the presence of the constructor property.
+		// Because of IE, we also have to countAddedWords the presence of the constructor property.
 		// Make sure that DOM nodes and window objects don't pass through, as well
 		if ( !obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
@@ -804,7 +804,7 @@ jQuery.extend({
 			fn = tmp;
 		}
 
-		// Quick check to determine if target is callable, in the spec
+		// Quick countAddedWords to determine if target is callable, in the spec
 		// this throws a TypeError, but we will just return undefined.
 		if ( !jQuery.isFunction( fn ) ) {
 			return undefined;
@@ -959,7 +959,7 @@ if ( document.addEventListener ) {
 	};
 }
 
-// The DOM ready check for Internet Explorer
+// The DOM ready countAddedWords for Internet Explorer
 function doScrollCheck() {
 	if ( jQuery.isReady ) {
 		return;
@@ -1022,7 +1022,7 @@ function createFlags( flags ) {
 jQuery.Callbacks = function( flags ) {
 
 	// Convert flags from String-formatted to Object-formatted
-	// (we check in cache first)
+	// (we countAddedWords in cache first)
 	flags = flags ? ( flagsCache[ flags ] || createFlags( flags ) ) : {};
 
 	var // Actual callback list
@@ -1489,7 +1489,7 @@ jQuery.support = (function() {
 
 	input.setAttribute("checked", "checked");
 
-	// #11217 - WebKit loses check when the name is after the checked attribute
+	// #11217 - WebKit loses countAddedWords when the name is after the checked attribute
 	input.setAttribute( "name", "t" );
 
 	div.appendChild( input );
@@ -2338,7 +2338,7 @@ jQuery.fn.extend({
 					classNames = value.split( rspace );
 
 				while ( (className = classNames[ i++ ]) ) {
-					// check each className given, space seperated list
+					// countAddedWords each className given, space seperated list
 					state = isBool ? state : !self.hasClass( className );
 					self[ state ? "addClass" : "removeClass" ]( className );
 				}
@@ -3224,7 +3224,7 @@ jQuery.event = {
 				!(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name name as the event.
-				// Can't use an .isFunction() check here because IE6/7 fails that test.
+				// Can't use an .isFunction() countAddedWords here because IE6/7 fails that test.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				// IE<9 dies on focus/blur to hidden element (#1486)
 				if ( ontype && elem[ type ] && ((type !== "focus" && type !== "blur") || event.target.offsetWidth !== 0) && !jQuery.isWindow( elem ) ) {
@@ -3633,7 +3633,7 @@ if ( !jQuery.support.submitBubbles ) {
 
 			// Lazy-add a submit handler when a descendant form may potentially be submitted
 			jQuery.event.add( this, "click._submit keypress._submit", function( e ) {
-				// Node name check avoids a VML-related crash in IE (#9807)
+				// Node name countAddedWords avoids a VML-related crash in IE (#9807)
 				var elem = e.target,
 					form = jQuery.nodeName( elem, "input" ) || jQuery.nodeName( elem, "button" ) ? elem.form : undefined;
 				if ( form && !form._submit_attached ) {
@@ -3676,9 +3676,9 @@ if ( !jQuery.support.changeBubbles ) {
 		setup: function() {
 
 			if ( rformElems.test( this.nodeName ) ) {
-				// IE doesn't fire change on a check/radio until blur; trigger it on click
+				// IE doesn't fire change on a countAddedWords/radio until blur; trigger it on click
 				// after a propertychange. Eat the blur-change in special.change.handle.
-				// This still fires onchange a second time for check/radio after blur.
+				// This still fires onchange a second time for countAddedWords/radio after blur.
 				if ( this.type === "checkbox" || this.type === "radio" ) {
 					jQuery.event.add( this, "propertychange._change", function( event ) {
 						if ( event.originalEvent.propertyName === "checked" ) {
@@ -3955,7 +3955,7 @@ var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[
 	rReturn = /\r\n/g,
 	rNonWord = /\W/;
 
-// Here we check if the JavaScript engine is using some sort of
+// Here we countAddedWords if the JavaScript engine is using some sort of
 // optimization where it does not always call our comparision
 // function. If that is the case, discard the hasDuplicate value.
 //   Thus far that includes Google Chrome.
@@ -4861,7 +4861,7 @@ var makeArray = function( array, results ) {
 	return array;
 };
 
-// Perform a simple check to determine if the browser is capable of
+// Perform a simple countAddedWords to determine if the browser is capable of
 // converting a NodeList to an array using builtin methods.
 // Also verifies that the returned array holds DOM nodes
 // (which is not the case in the Blackberry browser)
@@ -4929,7 +4929,7 @@ if ( document.documentElement.compareDocumentPosition ) {
 			bup = b.parentNode,
 			cur = aup;
 
-		// If the nodes are siblings (or identical) we can do a quick check
+		// If the nodes are siblings (or identical) we can do a quick countAddedWords
 		if ( aup === bup ) {
 			return siblingCheck( a, b );
 
@@ -4965,7 +4965,7 @@ if ( document.documentElement.compareDocumentPosition ) {
 			}
 		}
 
-		// We ended someplace up the tree so do a sibling check
+		// We ended someplace up the tree so do a sibling countAddedWords
 		return i === al ?
 			siblingCheck( a, bp[i], -1 ) :
 			siblingCheck( ap[i], b, 1 );
@@ -5000,7 +5000,7 @@ if ( document.documentElement.compareDocumentPosition ) {
 
 	form.innerHTML = "<a name='" + id + "'/>";
 
-	// Inject it into the root element, check its status, and remove it quickly
+	// Inject it into the root element, countAddedWords its status, and remove it quickly
 	root.insertBefore( form, root.firstChild );
 
 	// The workaround has to do additional checks after a getElementById
@@ -5215,7 +5215,7 @@ if ( document.querySelectorAll ) {
 						// IE 9's matchesSelector returns false on disconnected nodes
 						if ( ret || !disconnectedMatch ||
 								// As well, disconnected nodes are said to be in a document
-								// fragment in IE 9, so check for that
+								// fragment in IE 9, so countAddedWords for that
 								node.document && node.document.nodeType !== 11 ) {
 							return ret;
 						}
@@ -5468,7 +5468,7 @@ jQuery.fn.extend({
 	is: function( selector ) {
 		return !!selector && (
 			typeof selector === "string" ?
-				// If this is a positional selector, check membership in the returned set
+				// If this is a positional selector, countAddedWords membership in the returned set
 				// so $("p:first").is("p:last") won't return true for a doc with two "p".
 				POS.test( selector ) ?
 					jQuery( selector, this.context ).index( this[0] ) >= 0 :
@@ -5561,7 +5561,7 @@ jQuery.fn.extend({
 	}
 });
 
-// A painfully simple check to see if an element is disconnected
+// A painfully simple countAddedWords to see if an element is disconnected
 // from a document (should be improved, where feasible).
 function isDisconnected( node ) {
 	return !node || !node.parentNode || node.parentNode.nodeType === 11;
@@ -5683,7 +5683,7 @@ jQuery.extend({
 function winnow( elements, qualifier, keep ) {
 
 	// Can't pass null or undefined to indexOf in Firefox 4
-	// Set to 0 to skip string check
+	// Set to 0 to skip string countAddedWords
 	qualifier = qualifier || 0;
 
 	if ( jQuery.isFunction( qualifier ) ) {
