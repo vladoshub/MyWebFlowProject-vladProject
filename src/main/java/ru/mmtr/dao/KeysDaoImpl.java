@@ -24,7 +24,7 @@ public class KeysDaoImpl implements KeysDao {
 
     @Override
     public String addKey(String Key, Integer type, List<String> words) {
-        try {
+
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             Key key = new Key(type);
@@ -39,15 +39,12 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+
     }
 
     @Override
     public String addKey(String Key, Integer type, String wordStr) {
-        try {
+
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             Key key = new Key(type);
@@ -60,15 +57,10 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
     }
 
     @Override
     public String addWord(Long keyId, Integer type, List<String> words) {
-        try {
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             for (String s : words) {
@@ -79,15 +71,11 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+
     }
 
     @Override
     public String addWord(Long keyId, Integer type, String words) {
-        try {
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             Word word = new Word(keyId);
@@ -96,31 +84,23 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+
     }
 
     @Override
     public List<Key> findByKey(String key, Integer type) {
-        try {
+
             Session session = this.sessionFactory.openSession();
             List<Key> ux = session.createQuery("From Key where key='" + key + "' and type_id='" + type + "'").list();
             session.close();
             return ux;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
     }
 
     @Override
     public List<Key> findByWord(String word, Integer type) {
-        try {
             List<Key> ux2 = new ArrayList<>();
             Session session = this.sessionFactory.openSession();
-            List<Word> ux = session.createQuery("From Word where word='" + word + "' and type_id='" + type + "'").list();
+            List<Word> ux = session.createQuery("From Word where word='" + word + "'").list();
             for (Word w : ux) {
                 Key key = new Key();
                 key.setType(w.getKey().getType());
@@ -131,10 +111,6 @@ public class KeysDaoImpl implements KeysDao {
             }
             session.close();
             return ux2;
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
     }
 
 
@@ -142,7 +118,6 @@ public class KeysDaoImpl implements KeysDao {
 
     @Override
     public String deleteKeyById(Long id) {
-        try {
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             Key key = (Key) session.load(Key.class, id);
@@ -150,15 +125,11 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+
     }
 
     @Override
     public String deleteWordById(Long id) {
-        try {
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             Word word = (Word) session.load(Word.class, id);
@@ -166,15 +137,10 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
     }
 
     @Override
     public String updateKey(Long id, String newKeys, Integer type) {
-        try {
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             List<Key> ux = session.createQuery("From Key where id=" + id + " and type_id=" + type + "").list();
@@ -183,15 +149,12 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+
     }
 
     @Override
     public String updateWord(Long id, String newWords, Integer type) {
-        try {
+
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
             Word word = (Word) session.get(Word.class, id);
@@ -200,39 +163,23 @@ public class KeysDaoImpl implements KeysDao {
             tx1.commit();
             session.close();
             return "Ok";
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
     }
 
     @Override
     public List<Key> getKeysList(Integer type) {
-        try {
             Session session = this.sessionFactory.openSession();
             String hql = "FROM Key WHERE type_id=" + type + " ORDER BY key ASC";
             List<Key> VocabularyList = session.createQuery(hql).list();
             session.close();
             return VocabularyList;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-
     }
 
     @Override
     public Type findByIdType(String type) {
-        try {
             Session session = this.sessionFactory.openSession();
             String hql = "FROM Type WHERE type='" + type + "' ORDER BY type ASC";
             Type typel = (Type) session.createQuery(hql).uniqueResult();
             session.close();
             return typel;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-
     }
 }

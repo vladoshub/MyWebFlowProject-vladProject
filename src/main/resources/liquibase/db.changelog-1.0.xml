@@ -89,7 +89,7 @@
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="keys" type="character varying">
+            <column name="keys" type="character varying" >
                 <constraints nullable="true"/>
             </column>
             <column name="type_id" type="integer">
@@ -269,6 +269,4 @@
             <column name="type"/>
         </createIndex>
     </changeSet>
-
-
 </databaseChangeLog>
