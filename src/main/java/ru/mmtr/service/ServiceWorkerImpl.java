@@ -184,5 +184,8 @@ public class ServiceWorkerImpl implements ServiceWorker {
         return ServiceChecker.checkKey(word);
     }
 
-
+    @Override
+    public List<Type> getTypes() throws IOException {
+        return keysDao.getTypes();
+    }
 }

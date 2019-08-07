@@ -90,7 +90,7 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="keys" type="character varying" >
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true"/>
             </column>
             <column name="type_id" type="integer">
                 <constraints nullable="true" foreignKeyName="keys_type_id_fkey" references="type(id)"/>

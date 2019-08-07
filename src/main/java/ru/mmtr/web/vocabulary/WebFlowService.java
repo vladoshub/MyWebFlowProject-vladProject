@@ -144,4 +144,8 @@ public class WebFlowService {
         return out;
     }
 
+    public List<Type> getTypes() throws IOException {
+        return serviceWorker.getTypes();
+    }
+
 }

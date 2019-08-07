@@ -23,17 +23,19 @@ public class KeysDaoImpl implements KeysDao {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(KeysDaoImpl.class);
 
     @Override
-    public String addKey(String Key, Integer type, List<String> words) {
+    public String addKey(String key, Integer type, List<String> words) {
 
+            if (!findByKey(key,type).isEmpty())
+            return "такой ключ уже есть";
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
-            Key key = new Key(type);
-            key.setKey(Key);
+            Key keyN = new Key(type);
+            keyN.setKey(key);
             for (String wordStr : words) {
                 Word word = new Word();
                 word.setWord(wordStr);
-                key.setWords(word);
-                word.setKey(key);
+                keyN.setWords(word);
+                word.setKey(keyN);
             }
             session.saveOrUpdate(key);
             tx1.commit();
@@ -43,16 +45,18 @@ public class KeysDaoImpl implements KeysDao {
     }
 
     @Override
-    public String addKey(String Key, Integer type, String wordStr) {
+    public String addKey(String key, Integer type, String wordStr) {
 
+            if (!findByKey(key,type).isEmpty())
+            return "такой ключ уже есть";
             Session session = this.sessionFactory.openSession();
             Transaction tx1 = session.beginTransaction();
-            Key key = new Key(type);
-            key.setKey(Key);
+            Key keyN = new Key(type);
+            keyN.setKey(key);
             Word word = new Word();
             word.setWord(wordStr);
-            key.setWords(word);
-            word.setKey(key);
+            keyN.setWords(word);
+            word.setKey(keyN);
             session.saveOrUpdate(key);
             tx1.commit();
             session.close();
@@ -181,5 +185,14 @@ public class KeysDaoImpl implements KeysDao {
             Type typel = (Type) session.createQuery(hql).uniqueResult();
             session.close();
             return typel;
+    }
+
+    @Override
+    public List<Type> getTypes() {
+        Session session = this.sessionFactory.openSession();
+        String hql = "FROM Type ORDER BY type ASC";
+        List<Type> typel = (List<Type>) session.createQuery(hql).list();
+        session.close();
+        return typel;
     }
 }

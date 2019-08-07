@@ -12,9 +12,11 @@
     <view-state id="main" view="main">
         <transition on="nextRus" to="temp">
             <set  name = "type.type"  value = "WebFlowService.findIdByType('Rus-Lat')"/>
+            <set  name = "type.typeList"  value = "WebFlowService.getTypes()"/>
         </transition>
         <transition on="nextBin" to="temp">
             <set  name = "type.type"  value = "WebFlowService.findIdByType('Bin-Dec')"/>
+            <set  name = "type.typeList"  value = "WebFlowService.getTypes()"/>
         </transition>
     </view-state>
 

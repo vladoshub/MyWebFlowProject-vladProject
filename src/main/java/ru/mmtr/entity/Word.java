@@ -10,7 +10,7 @@ public class Word implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "word")
+    @Column(name = "words")
     private String word;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "key_id")

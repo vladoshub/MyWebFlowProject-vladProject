@@ -8,9 +8,9 @@ import java.util.List;
 public interface KeysDao {
     public String deleteKeyById(Long id);
 
-    public String addKey(String Key, Integer type, List<String> words);
+    public String addKey(String key, Integer type, List<String> words);
 
-    public String addKey(String Key, Integer type, String word);
+    public String addKey(String key, Integer type, String word);
 
     public String addWord(Long id, Integer type, List<String> words);
 
@@ -29,5 +29,7 @@ public interface KeysDao {
     public List<Key> getKeysList(Integer type);
 
     public Type findByIdType(String type);
+
+    public List<Type> getTypes();
 
 }

@@ -45,10 +45,13 @@ function editKeyOrSingleWord(id, op, newword) {
 }
 
 
-function hiddRow(id) {
-    $('#' + id).toggle();
-}
 
+function hiddRow(id) {
+    if (id=='hidden')
+        $('#hidden').children('button').toggle();
+    else
+        $('#' + id).toggle();
+}
 
 function deleteKeyOrSingleWord(id, op) {
     countAddedWords = 0;

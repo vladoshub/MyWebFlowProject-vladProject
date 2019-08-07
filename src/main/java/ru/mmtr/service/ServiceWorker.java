@@ -35,4 +35,6 @@ public interface ServiceWorker {
     public boolean checkKey(String word, Integer num);
 
     public Type findByIdType(String type) throws IOException;
+
+    public List<Type> getTypes() throws IOException;
 }
