@@ -200,7 +200,7 @@
             <scope>provided</scope>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>3.5.3</version>
+            <version>4.8.0</version>
         </dependency>
         <dependency>
             <scope>provided</scope>
